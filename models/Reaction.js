@@ -5,7 +5,7 @@ const reactionSchema = new Schema(
   {
     reactionId: {
       type: Schema.Types.ObjectId,
-      default: new ObjectId
+      default: () => new Types.ObjectId(),
     },
     reactionBody: {
       type: String,
@@ -39,6 +39,5 @@ return createdAt + 'your date is now formatted';
 };
 
 
-//userSchema.virtual('reactionCount').get(function () { return `${this.reactions.length}`});
 
 module.exports = reactionSchema;
