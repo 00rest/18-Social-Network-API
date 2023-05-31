@@ -20,6 +20,23 @@ connection.once('open', async () => {
   // Add courses to the collection and await the results
   await Thought.collection.insertMany(thoughts);
 
+
+// Add thoughts ids to to respective owners
+  let ts = [];
+
+  await Thought.find()
+    .then((data) =>  ts = data )
+    .catch((err) => res.status(500).json(err));
+
+  for (let i = 0; i < ts.length; i++) {
+    await User.findOneAndUpdate(
+      { username: ts[i].username },
+      { $addToSet: { thoughts: ts[i]._id } },
+      { new: true }
+    )
+    .catch((err) => res.status(500).json(err));
+  }
+
   // Log out the seed data to indicate what should appear in the database
   console.table(users);
   console.table(thoughts);

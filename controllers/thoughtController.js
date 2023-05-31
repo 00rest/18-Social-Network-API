@@ -2,7 +2,7 @@ const { Thought, User } = require('../models');
 
 module.exports = {
   // Get all thoughts
-  getThoughts(req, res) {
+  getAllThoughts(req, res) {
     Thought.find()
       .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(500).json(err));
@@ -21,7 +21,18 @@ module.exports = {
   // Create a thought
   createThought(req, res) {
     Thought.create(req.body)
-      .then((thought) => res.json(thought))
+      .then((thought) =>
+      //{console.log(thought._id);
+        //!thought
+          //? res.status(404).json({ message: 'Your thought was not created :(' })
+            User.findOneAndUpdate(
+            { username: thought.username },
+            { $addToSet: { thoughts: thought._id } },
+            { new: true }
+          )
+              // }   
+               )
+      .then((userThought) => res.json(userThought))
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);

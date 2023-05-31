@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-  getUsers,
+  getAllUsers,
   getSingleUser,
   createUser,
   deleteUser,
@@ -9,10 +9,16 @@ const {
 } = require('../../controllers/userController');
 
 // /api/users
-router.route('/').get(getUsers).post(createUser);
+router
+.route('/')
+.get(getAllUsers)
+.post(createUser);
 
 // /api/users/:userId
-router.route('/:userId').get(getSingleUser).delete(deleteUser);
+router
+.route('/:userId')
+.get(getSingleUser)
+.delete(deleteUser);
 
 // /api/students/:studentId/assignments
 //router.route('/:studentId/assignments').post(addAssignment);

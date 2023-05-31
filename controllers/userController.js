@@ -25,7 +25,7 @@ const headCount = async () =>
 
 module.exports = {
   // Get all users
-  getUsers(req, res) {
+  getAllUsers(req, res) {
     User.find()
       .then(async (users) => {
         const userObj = {
@@ -62,7 +62,7 @@ module.exports = {
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
-  // Delete a user and remove them from the thought
+  // Delete a user and remove their thoughts
   deleteUser(req, res) {
     User.findOneAndRemove({ _id: req.params.userId })
       .then((user) =>
