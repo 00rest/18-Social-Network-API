@@ -14,10 +14,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      validate: {
-        validator: () => Promise.resolve(false),
-        message: 'Email validation failed'
-      }
+      match: /.+\@.+\..+/,
     },
     thoughts: [
       {
@@ -28,7 +25,7 @@ const userSchema = new Schema(
     friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'user',
+        ref: 'users',
       }
     ],
   },
